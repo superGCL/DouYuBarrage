@@ -26,9 +26,9 @@ namespace DouyuBarrage
 
             // 发送登录请求
             LoginRequest loginRequest = new LoginRequest(roomId);
-            byte[] loginRequestPackage = Utils.BuildDouyuBarragePackage(loginRequest.ToString());
+            BarragePacket packet = new BarragePacket(loginRequest.ToString(), MessageType.CLIENT);
             NetworkStream ns = tcpClient.GetStream();
-            ns.Write(loginRequestPackage, 0, loginRequestPackage.Length);
+            ns.Write(packet.Bytes, 0, packet.Bytes.Length);
             ns.Flush();
 
             // 接收登录请求回应
