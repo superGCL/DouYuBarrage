@@ -33,25 +33,36 @@ namespace DouyuBarrage
 
             // 接收登录请求回应
             byte[] recvBuffer = new byte[512];
-            int readCnt = ns.Read(recvBuffer, 0, recvBuffer.Length);
-            Console.WriteLine("Recv LoginRequest Response: Message Length " + readCnt);
+            int readCnt = ns.Read(recvBuffer, 0, 4); // 先读取包长度
+            if (readCnt != 4)
+            {
+                throw new Exception("Read Error");
+            }
 
-            byte[] buffer = new byte[1024];
-            MemoryStream ms = new MemoryStream(recvBuffer, 0, readCnt);
-            ms.Read(buffer, 0, 4); // 读取第一个消息长度
+            // 解析出包长度
+            int messageLength = BitConverter.ToInt32(recvBuffer);
 
-            int messageLength = BitConverter.ToInt32(buffer);
-            Console.WriteLine("Parse message length 1 " + messageLength);
+            // 根据读取到的包长，接收剩下的包体
+            recvBuffer = new byte[messageLength];
+            readCnt = ns.Read(recvBuffer, 0, messageLength);
+            if (readCnt != messageLength)
+            {
+                throw new Exception("Read Error");
+            }
 
-            ms.Read(buffer, 0, 4); // 读取第二个消息长度
+            // 解析包内容
+            byte[] buffer = new byte[messageLength];
+            MemoryStream ms = new MemoryStream(recvBuffer, 0, recvBuffer.Length);
+            ms.Read(buffer, 0, 4); // 读取消息长度
+
             messageLength = BitConverter.ToInt32(buffer);
-            Console.WriteLine("Parse message length 2 " + messageLength);
+            Console.WriteLine("Parse message length 1 " + messageLength);
 
             ms.Read(buffer, 0, 2); // 读取消息类型
             int messageType = BitConverter.ToInt16(buffer);
             Console.WriteLine("Parse message type " + messageType);
 
-            ms.Read(buffer, 0, 2); // 读取加密字段和保留字段，但是不解析 gcl
+            ms.Read(buffer, 0, 2); // 读取加密字段和保留字段，但是不解析
 
             ms.Read(buffer, 0, messageLength - 4 - 4); // 读取数据部
             string data = Encoding.UTF8.GetString(buffer, 0, messageLength - 4 - 4);
