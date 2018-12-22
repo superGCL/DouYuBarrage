@@ -51,7 +51,7 @@ namespace DouyuBarrage
             int messageType = BitConverter.ToInt16(buffer);
             Console.WriteLine("Parse message type " + messageType);
 
-            ms.Read(buffer, 0, 2); // 读取加密字段和保留字段，但是不解析
+            ms.Read(buffer, 0, 2); // 读取加密字段和保留字段，但是不解析 gcl
 
             ms.Read(buffer, 0, messageLength - 4 - 4); // 读取数据部
             string data = Encoding.UTF8.GetString(buffer, 0, messageLength - 4 - 4);
