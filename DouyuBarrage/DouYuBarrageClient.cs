@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Net.Sockets;
-using System.Text;
 
 namespace DouyuBarrage
 {
@@ -26,9 +24,9 @@ namespace DouyuBarrage
 
             // 发送登录请求
             LoginRequest loginRequest = new LoginRequest(roomId);
-            BarragePacket packet = new BarragePacket(loginRequest.ToString(), MessageType.CLIENT);
+            BarragePacket sendPacket = new BarragePacket(loginRequest.ToString(), MessageType.CLIENT);
             NetworkStream ns = tcpClient.GetStream();
-            ns.Write(packet.Bytes, 0, packet.Bytes.Length);
+            ns.Write(sendPacket.Bytes, 0, sendPacket.Bytes.Length);
             ns.Flush();
 
             // 接收登录请求回应
@@ -50,23 +48,8 @@ namespace DouyuBarrage
                 throw new Exception("Read Error");
             }
 
-            // 解析包内容
-            byte[] buffer = new byte[messageLength];
-            MemoryStream ms = new MemoryStream(recvBuffer, 0, recvBuffer.Length);
-            ms.Read(buffer, 0, 4); // 读取消息长度
-
-            messageLength = BitConverter.ToInt32(buffer);
-            Console.WriteLine("Parse message length 1 " + messageLength);
-
-            ms.Read(buffer, 0, 2); // 读取消息类型
-            int messageType = BitConverter.ToInt16(buffer);
-            Console.WriteLine("Parse message type " + messageType);
-
-            ms.Read(buffer, 0, 2); // 读取加密字段和保留字段，但是不解析
-
-            ms.Read(buffer, 0, messageLength - 4 - 4); // 读取数据部
-            string data = Encoding.UTF8.GetString(buffer, 0, messageLength - 4 - 4);
-            Console.WriteLine("Parse message data " + data);
+            BarragePacket recvPacket = new BarragePacket(recvBuffer);
+            Console.WriteLine(recvPacket.ToString());
 
             tcpClient.Close();
         }

@@ -7,7 +7,7 @@ namespace DouyuBarrage
     public enum MessageType
     {
         CLIENT = 689,
-        SERVERT = 690,
+        SERVER = 690,
         UNKNOWN = -1
     }
 
@@ -54,6 +54,57 @@ namespace DouyuBarrage
             Bytes = ms.ToArray();
         }
 
+        public BarragePacket(byte[] bytes)
+        {
+            // 缓冲区
+            byte[] buffer = new byte[bytes.Length];
+            MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length);
+
+            // 消息长度
+            int readCnt = ms.Read(buffer, 0, 4); // 读取消息长度
+            if (readCnt != 4)
+            {
+                throw new Exception("Expected 4 bytes, but " + readCnt + " bytes");
+            }
+            MessageLength = BitConverter.ToInt32(buffer);
+
+            // 消息类型
+            readCnt = ms.Read(buffer, 0, 2);
+            if (readCnt != 2)
+            {
+                throw new Exception("Expected 2 bytes, but " + readCnt + " bytes");
+            }
+            int messageType = BitConverter.ToInt16(buffer);
+            if (messageType == (int)MessageType.CLIENT)
+            {
+                MessageType = MessageType.CLIENT;
+            }
+            else if (messageType == (int)MessageType.SERVERT)
+            {
+                MessageType = MessageType.SERVERT;
+            }
+            else
+            {
+                MessageType = MessageType.UNKNOWN;
+            }
+
+            // 保留字段和加密字段
+            readCnt = ms.Read(buffer, 0, 2);
+            if (readCnt != 2)
+            {
+                throw new Exception("Expected 2 bytes, but " + readCnt + " bytes");
+            }
+
+            // 数据部分
+            readCnt = ms.Read(buffer, 0, MessageLength - 8);
+            if (readCnt != (MessageLength - 8))
+            {
+                throw new Exception("Expected " + (MessageLength - 8) + " bytes, but " + readCnt + " bytes");
+            }
+
+            Data = Encoding.UTF8.GetString(buffer, 0, MessageLength - 8);
+        }
+
         /// <summary>
         /// Gets or sets the length of the message.
         /// </summary>
@@ -89,5 +140,20 @@ namespace DouyuBarrage
         /// </summary>
         /// <value>The bytes.</value>
         public byte[] Bytes { set; get; }
+
+        /// <summary>
+        /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:DouyuBarrage.BarragePacket"/>.
+        /// </summary>
+        /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:DouyuBarrage.BarragePacket"/>.</returns>
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("MessageLength:" + MessageLength);
+            sb.AppendLine("MessageType:" + MessageType);
+            sb.AppendLine("Data:" + Data);
+
+            return sb.ToString();
+        }
     }
 }
