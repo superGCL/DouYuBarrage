@@ -1,4 +1,7 @@
-﻿using System;
+﻿using System.IO;
+using log4net;
+using log4net.Config;
+using log4net.Repository;
 
 namespace DouyuBarrage
 {
@@ -6,9 +9,9 @@ namespace DouyuBarrage
     {
         static void Main(string[] args)
         {
-            // C#是小端字节序
-            //bool byteOrderIsBigEndin = Utils.IsBigEndin();
-            //Console.WriteLine(byteOrderIsBigEndin);
+            // 配置日志系统
+            ILoggerRepository repository = LogManager.CreateRepository("Logger");
+            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
 
             DouYuBarrageClient client = new DouYuBarrageClient();
             client.Connect(310904);

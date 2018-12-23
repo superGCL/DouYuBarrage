@@ -10,5 +10,12 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="2.2.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="logfile\20181223.log" />
+    <None Remove="logs\20181223.log" />
+    <None Remove="logs\20181223.log" />
+    <None Remove="logs\20181224.log" />
   </ItemGroup>
 </Project>

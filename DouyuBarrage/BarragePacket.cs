@@ -79,9 +79,9 @@ namespace DouyuBarrage
             {
                 MessageType = MessageType.CLIENT;
             }
-            else if (messageType == (int)MessageType.SERVERT)
+            else if (messageType == (int)MessageType.SERVER)
             {
-                MessageType = MessageType.SERVERT;
+                MessageType = MessageType.SERVER;
             }
             else
             {
@@ -149,9 +149,10 @@ namespace DouyuBarrage
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine("MessageLength:" + MessageLength);
-            sb.AppendLine("MessageType:" + MessageType);
-            sb.AppendLine("Data:" + Data);
+            sb.Append("BarragePacket[MessageLength:" + MessageLength);
+            sb.Append("MessageType:" + MessageType);
+            sb.Append("Data:" + Data);
+            sb.Append("]");
 
             return sb.ToString();
         }
