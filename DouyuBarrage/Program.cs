@@ -15,6 +15,7 @@ namespace DouyuBarrage
 
             DouYuBarrageClient client = new DouYuBarrageClient();
             client.Connect(310904);
+            client.Disconnect();
         }
     }
 }
