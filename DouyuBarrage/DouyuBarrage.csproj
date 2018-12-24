@@ -18,4 +18,9 @@
     <None Remove="logs\20181223.log" />
     <None Remove="logs\20181224.log" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

@@ -79,6 +79,8 @@ namespace DouyuBarrage
                 // 记录日志
                 logger.Info(recvPacket.ToString());
 
+                LoginResponse response = new LoginResponse(recvPacket.ToString());
+
                 return true;
             }
 
