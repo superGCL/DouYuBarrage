@@ -137,18 +137,18 @@ namespace DouyuBarrage
                 UserName = keyValues.GetValueOrDefault("username");
                 NickName = keyValues.GetValueOrDefault("nickname");
                 LiveStat = keyValues.GetValueOrDefault("live_stat");
-                IsIllegal = Convert.ToBoolean(keyValues.GetValueOrDefault("is_illegal"));
+                IsIllegal = keyValues.GetValueOrDefault("is_illegal") != "0";
                 IllegalContentTips = keyValues.GetValueOrDefault("ill_ct");
                 IllegalTimestamp = Convert.ToInt64(keyValues.GetValueOrDefault("now"));
                 PhoneTips = keyValues.GetValueOrDefault("ps");
                 EmailTips = keyValues.GetValueOrDefault("es");
                 IdentificationType = keyValues.GetValueOrDefault("it");
                 IdentificationTypeStat = keyValues.GetValueOrDefault("its");
-                NeedPhoneVerify = Convert.ToBoolean(keyValues.GetValueOrDefault("npv"));
+                NeedPhoneVerify = keyValues.GetValueOrDefault("npv") != "0";
                 BestDiligenceLevel = Convert.ToInt32(keyValues.GetValueOrDefault("best_dlev"));
                 CurLevel = Convert.ToInt32(keyValues.GetValueOrDefault("cur_lev"));
                 NeedRoomCondition = keyValues.GetValueOrDefault("nrc");
-                IsHiden = Convert.ToBoolean(keyValues.GetValueOrDefault("ih"));
+                IsHiden = keyValues.GetValueOrDefault("ih") != "0";
                 ServerId = keyValues.GetValueOrDefault("sid");
                 Sahf = keyValues.GetValueOrDefault("sahf");
             }
