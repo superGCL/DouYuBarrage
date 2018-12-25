@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using log4net;
 using log4net.Config;
 using log4net.Repository;
@@ -14,7 +15,9 @@ namespace DouyuBarrage
             XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
 
             DouYuBarrageClient client = new DouYuBarrageClient();
-            client.Connect(310904);
+            client.Connect(252802);
+
+            Console.ReadKey();
             client.Disconnect();
         }
     }

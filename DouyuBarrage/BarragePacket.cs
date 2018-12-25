@@ -150,8 +150,8 @@ namespace DouyuBarrage
             StringBuilder sb = new StringBuilder();
 
             sb.Append("BarragePacket[MessageLength:" + MessageLength);
-            sb.Append("MessageType:" + MessageType);
-            sb.Append("Data:" + Data);
+            sb.Append(" MessageType:" + MessageType);
+            sb.Append(" Data:" + Data);
             sb.Append("]");
 
             return sb.ToString();
