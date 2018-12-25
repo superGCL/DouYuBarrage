@@ -238,23 +238,21 @@ namespace DouyuBarrage
                 try
                 {
                     // 接收登录请求回应
-                    byte[] recvBuffer = new byte[8];
-                    int readCnt = ns.Read(recvBuffer, 0, 4); // 先读取包长度
+                    byte[] buffer = new byte[8];
+                    int readCnt = ns.Read(buffer, 0, 4); // 先读取包长度
                     if (readCnt != 4)
                     {
-                        logger.Error($"Read Error! Expected 4 bytes, but {readCnt} bytes");
                         throw new Exception($"Read Error! Expected 4 bytes, but {readCnt} bytes");
                     }
 
                     // 解析出包长度
-                    int messageLength = BitConverter.ToInt32(recvBuffer);
+                    int messageLength = BitConverter.ToInt32(buffer);
 
                     // 根据读取到的包长，接收剩下的包体
-                    recvBuffer = new byte[messageLength];
+                    byte[] recvBuffer = new byte[messageLength];
                     readCnt = ns.Read(recvBuffer, 0, messageLength);
                     if (readCnt != messageLength)
                     {
-                        logger.Error($"Read Error! Expected {messageLength} bytes, but {readCnt} bytes");
                         throw new Exception($"Read Error! Expected {messageLength} bytes, but {readCnt} bytes");
                     }
 
@@ -266,7 +264,7 @@ namespace DouyuBarrage
                 }
                 catch (Exception e)
                 {
-                    logger.Error("Read Packet Fail!", e);
+                    logger.Error(e.ToString());
                 }
             }
         }

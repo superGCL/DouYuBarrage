@@ -70,7 +70,6 @@ namespace DouyuBarrage
             int readCnt = ms.Read(buffer, 0, 4); // 读取消息长度
             if (readCnt != 4)
             {
-                logger.Error($"Read Error! Expected 4 bytes, but {readCnt} bytes");
                 throw new Exception("Read Error! Expected 4 bytes, but " + readCnt + " bytes");
             }
             MessageLength = BitConverter.ToInt32(buffer);
@@ -79,7 +78,6 @@ namespace DouyuBarrage
             readCnt = ms.Read(buffer, 0, 2);
             if (readCnt != 2)
             {
-                logger.Error($"Read Error! Expected 2 bytes, but {readCnt} bytes");
                 throw new Exception("Read Error! Expected 2 bytes, but " + readCnt + " bytes");
             }
             int messageType = BitConverter.ToInt16(buffer);
@@ -100,7 +98,6 @@ namespace DouyuBarrage
             readCnt = ms.Read(buffer, 0, 2);
             if (readCnt != 2)
             {
-                logger.Error($"Read Error! Expected 2 bytes, but {readCnt} bytes");
                 throw new Exception("Read Error! Expected 2 bytes, but " + readCnt + " bytes");
             }
 
@@ -108,7 +105,6 @@ namespace DouyuBarrage
             readCnt = ms.Read(buffer, 0, MessageLength - 8);
             if (readCnt != (MessageLength - 8))
             {
-                logger.Error($"Read Error! Expected {(MessageLength - 8)} bytes, but {readCnt} bytes");
                 throw new Exception("Read Error! Expected " + (MessageLength - 8) + " bytes, but " + readCnt + " bytes");
             }
 
