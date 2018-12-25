@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.IO;
 using System.Text;
 
@@ -13,6 +14,11 @@ namespace DouyuBarrage
 
     public class BarragePacket
     {
+        /// <summary>
+        /// The logger.
+        /// </summary>
+        private readonly ILog logger = LogManager.GetLogger("Logger", typeof(DouYuBarrageClient));
+
         public BarragePacket(string content, MessageType type)
         {
             Data = content;
@@ -64,7 +70,8 @@ namespace DouyuBarrage
             int readCnt = ms.Read(buffer, 0, 4); // 读取消息长度
             if (readCnt != 4)
             {
-                throw new Exception("Expected 4 bytes, but " + readCnt + " bytes");
+                logger.Error($"Read Error! Expected 4 bytes, but {readCnt} bytes");
+                throw new Exception("Read Error! Expected 4 bytes, but " + readCnt + " bytes");
             }
             MessageLength = BitConverter.ToInt32(buffer);
 
@@ -72,7 +79,8 @@ namespace DouyuBarrage
             readCnt = ms.Read(buffer, 0, 2);
             if (readCnt != 2)
             {
-                throw new Exception("Expected 2 bytes, but " + readCnt + " bytes");
+                logger.Error($"Read Error! Expected 2 bytes, but {readCnt} bytes");
+                throw new Exception("Read Error! Expected 2 bytes, but " + readCnt + " bytes");
             }
             int messageType = BitConverter.ToInt16(buffer);
             if (messageType == (int)MessageType.CLIENT)
@@ -92,14 +100,16 @@ namespace DouyuBarrage
             readCnt = ms.Read(buffer, 0, 2);
             if (readCnt != 2)
             {
-                throw new Exception("Expected 2 bytes, but " + readCnt + " bytes");
+                logger.Error($"Read Error! Expected 2 bytes, but {readCnt} bytes");
+                throw new Exception("Read Error! Expected 2 bytes, but " + readCnt + " bytes");
             }
 
             // 数据部分
             readCnt = ms.Read(buffer, 0, MessageLength - 8);
             if (readCnt != (MessageLength - 8))
             {
-                throw new Exception("Expected " + (MessageLength - 8) + " bytes, but " + readCnt + " bytes");
+                logger.Error($"Read Error! Expected {(MessageLength - 8)} bytes, but {readCnt} bytes");
+                throw new Exception("Read Error! Expected " + (MessageLength - 8) + " bytes, but " + readCnt + " bytes");
             }
 
             Data = Encoding.UTF8.GetString(buffer, 0, MessageLength - 8);
