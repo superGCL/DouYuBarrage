@@ -62,6 +62,11 @@ namespace DouyuBarrage
 
         public BarragePacket(byte[] bytes)
         {
+            if (bytes == null || bytes.Length <= 0)
+            {
+                throw new ArgumentNullException("types");
+            }
+
             // 缓冲区
             byte[] buffer = new byte[bytes.Length];
             MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length);

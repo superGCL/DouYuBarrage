@@ -238,23 +238,13 @@ namespace DouyuBarrage
                 try
                 {
                     // 接收登录请求回应
-                    byte[] buffer = new byte[8];
-                    int readCnt = ns.Read(buffer, 0, 4); // 先读取包长度
-                    if (readCnt != 4)
-                    {
-                        throw new Exception($"Read Error! Expected 4 bytes, but {readCnt} bytes");
-                    }
+                    byte[] buffer = BlockRead(ns, 4); // 先读取包长度
 
                     // 解析出包长度
                     int messageLength = BitConverter.ToInt32(buffer);
 
                     // 根据读取到的包长，接收剩下的包体
-                    byte[] recvBuffer = new byte[messageLength];
-                    readCnt = ns.Read(recvBuffer, 0, messageLength);
-                    if (readCnt != messageLength)
-                    {
-                        throw new Exception($"Read Error! Expected {messageLength} bytes, but {readCnt} bytes");
-                    }
+                    byte[] recvBuffer = BlockRead(ns, messageLength);
 
                     // 解析响应
                     BarragePacket recvPacket = new BarragePacket(recvBuffer);
@@ -267,6 +257,30 @@ namespace DouyuBarrage
                     logger.Error(e.ToString());
                 }
             }
+        }
+
+        /// <summary>
+        /// 从Stream中读取指定大小的字节
+        /// </summary>
+        /// <param name="ns">NetworkStream</param>
+        /// <param name="size">Read Size</param>
+        /// <returns>Required Bytes</returns>
+        private byte[] BlockRead(NetworkStream ns, int size)
+        {
+            byte[] bytes = new byte[size];
+
+            for (int i = 0; i < size; ++i)
+            {
+                int b = ns.ReadByte();
+                if (b == -1)
+                {
+                    return null;
+                }
+
+                bytes[i] = (byte)b;
+            }
+
+            return bytes;
         }
 
         /// <summary>
