@@ -267,7 +267,7 @@ namespace DouyuBarrage.Client
                     Dictionary<string, string> keyValues = STTDeserializer.Deserialize(recvPacket.ToString());
                     if (keyValues.ContainsKey("type"))
                     {
-
+                        logger.Info(keyValues.GetValueOrDefault("nn") + ":" + keyValues.GetValueOrDefault("txt"));
                     }
                     else
                     {
