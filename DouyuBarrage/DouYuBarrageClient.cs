@@ -1,5 +1,6 @@
 ﻿using log4net;
 using System;
+using System.IO;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Timers;
@@ -176,6 +177,9 @@ namespace DouyuBarrage
             // 停止心跳线程
             keepAliveTimer.Stop();
 
+            // 等待消息循环退出
+            messageLookTask.Wait();
+
             logger.Info("Logout.");
         }
 
@@ -240,17 +244,35 @@ namespace DouyuBarrage
                     // 接收登录请求回应
                     byte[] buffer = BlockRead(ns, 4); // 先读取包长度
 
+                    // 判断是否停止运行
+                    if (!Running)
+                    {
+                        break;
+                    }
+
                     // 解析出包长度
                     int messageLength = BitConverter.ToInt32(buffer);
 
                     // 根据读取到的包长，接收剩下的包体
                     byte[] recvBuffer = BlockRead(ns, messageLength);
 
+                    // 判断是否停止运行
+                    if (!Running)
+                    {
+                        break;
+                    }
+
                     // 解析响应
                     BarragePacket recvPacket = new BarragePacket(recvBuffer);
 
                     // 记录日志
                     logger.Info(recvPacket.ToString());
+                }
+                catch (IOException e)
+                {
+                    // 连接断开了
+                    Running = false;
+                    logger.Error("Connection Lose.");
                 }
                 catch (Exception e)
                 {
