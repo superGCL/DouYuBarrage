@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DouyuBarrage;
+using DouyuBarrage.Utils;
 using Xunit;
 
 namespace UnitTest

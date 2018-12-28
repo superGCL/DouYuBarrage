@@ -4,8 +4,11 @@ using System.IO;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Timers;
+using DouyuBarrage.Request;
+using DouyuBarrage.Response;
+using DouyuBarrage.Utils;
 
-namespace DouyuBarrage
+namespace DouyuBarrage.Client
 {
     /// <summary>
     /// DouYu barrage client.
@@ -213,7 +216,7 @@ namespace DouyuBarrage
             ns.Write(packet.Bytes, 0, packet.Bytes.Length);
             ns.Flush();
 
-            logger.Info("Heart Beat......");
+            logger.Debug("Heart Beat......");
         }
 
         /// <summary>
@@ -256,17 +259,19 @@ namespace DouyuBarrage
                     BarragePacket recvPacket = new BarragePacket(recvBuffer);
 
                     // 记录日志
-                    logger.Info(recvPacket.ToString());
+                    logger.Debug(recvPacket.ToString());
                 }
                 catch (IOException e)
                 {
+                    logger.Error(e);
+
                     // 连接断开了
                     Running = false;
                     logger.Error("Connection Lose.");
                 }
                 catch (Exception e)
                 {
-                    logger.Error(e.ToString());
+                    logger.Error(e);
                 }
             }
         }

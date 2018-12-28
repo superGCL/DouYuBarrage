@@ -1,9 +1,10 @@
-﻿using log4net;
+﻿using DouyuBarrage.Client;
+using log4net;
 using System;
 using System.IO;
 using System.Text;
 
-namespace DouyuBarrage
+namespace DouyuBarrage.Utils
 {
     public enum MessageType
     {

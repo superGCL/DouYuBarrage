@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DouyuBarrage
+namespace DouyuBarrage.Utils
 {
     /// <summary>
     /// STT Deserializer.

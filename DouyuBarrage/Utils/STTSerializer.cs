@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace DouyuBarrage
+namespace DouyuBarrage.Utils
 {
     /// <summary>
     /// STT Serializer.

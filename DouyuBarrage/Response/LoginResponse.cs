@@ -1,7 +1,8 @@
-﻿using System;
+﻿using DouyuBarrage.Utils;
+using System;
 using System.Collections.Generic;
 
-namespace DouyuBarrage
+namespace DouyuBarrage.Response
 {
     public class LoginResponse
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace DouyuBarrage
+namespace DouyuBarrage.Request
 {
     public class LogoutRequest
     {

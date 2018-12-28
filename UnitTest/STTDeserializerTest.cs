@@ -1,5 +1,6 @@
 ﻿using System;
 using DouyuBarrage;
+using DouyuBarrage.Response;
 using Xunit;
 
 namespace UnitTest

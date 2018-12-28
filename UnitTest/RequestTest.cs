@@ -1,4 +1,5 @@
 using DouyuBarrage;
+using DouyuBarrage.Request;
 using Xunit;
 
 namespace UnitTest
