@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DouyuBarrage.Message
 {
-    class FrankMessage
+    public class FrankMessage
     {
     }
 }

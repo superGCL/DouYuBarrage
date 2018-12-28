@@ -1,12 +1,13 @@
-﻿using log4net;
+﻿using DouyuBarrage.Message;
+using DouyuBarrage.Request;
+using DouyuBarrage.Utils;
+using log4net;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Timers;
-using DouyuBarrage.Request;
-using DouyuBarrage.Response;
-using DouyuBarrage.Utils;
 
 namespace DouyuBarrage.Client
 {
@@ -141,10 +142,11 @@ namespace DouyuBarrage.Client
             BarragePacket recvPacket = new BarragePacket(buffer);
 
             // 记录日志
-            logger.Info(recvPacket.ToString());
+            logger.Debug(recvPacket.ToString());
 
             // 将返回结果解析成LoginResponse
-            LoginResponse response = new LoginResponse(recvPacket.ToString());
+            LoginResponseMessage response = new LoginResponseMessage(recvPacket.ToString());
+            OnLoginSucceed?.Invoke(response);
 
             return true;
         }
@@ -260,6 +262,17 @@ namespace DouyuBarrage.Client
 
                     // 记录日志
                     logger.Debug(recvPacket.ToString());
+
+                    // 解析内容
+                    Dictionary<string, string> keyValues = STTDeserializer.Deserialize(recvPacket.ToString());
+                    if (keyValues.ContainsKey("type"))
+                    {
+
+                    }
+                    else
+                    {
+                        logger.Error("Unsupported Message! " + recvPacket.ToString());
+                    }
                 }
                 catch (IOException e)
                 {
@@ -344,5 +357,15 @@ namespace DouyuBarrage.Client
         /// 持续接收消息
         /// </summary>
         private Task messageLookTask;
+        
+        /// <summary>
+        /// Login Room Succeed Event
+        /// </summary>
+        public event Action<LoginResponseMessage> OnLoginSucceed;
+
+        /// <summary>
+        /// Chat Message Event
+        /// </summary>
+        public event Action<ChatMessage> OnChat;
     }
 }
