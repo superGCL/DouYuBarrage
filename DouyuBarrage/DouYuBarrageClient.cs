@@ -126,26 +126,16 @@ namespace DouyuBarrage
             ns.Flush();
 
             // 接收登录请求回应
-            byte[] recvBuffer = new byte[512];
-            int readCnt = ns.Read(recvBuffer, 0, 4); // 先读取包长度
-            if (readCnt != 4)
-            {
-                throw new Exception($"Read Error! Expected 4bytes, but {readCnt}");
-            }
+            byte[] buffer = BlockRead(ns, 4);
 
             // 解析出包长度
-            int messageLength = BitConverter.ToInt32(recvBuffer);
+            int messageLength = BitConverter.ToInt32(buffer);
 
             // 根据读取到的包长，接收剩下的包体
-            recvBuffer = new byte[messageLength];
-            readCnt = ns.Read(recvBuffer, 0, messageLength);
-            if (readCnt != messageLength)
-            {
-                throw new Exception($"Read Error! Expected {messageLength}bytes, but {readCnt}");
-            }
+            buffer = BlockRead(ns, messageLength);
 
             // 解析响应
-            BarragePacket recvPacket = new BarragePacket(recvBuffer);
+            BarragePacket recvPacket = new BarragePacket(buffer);
 
             // 记录日志
             logger.Info(recvPacket.ToString());
