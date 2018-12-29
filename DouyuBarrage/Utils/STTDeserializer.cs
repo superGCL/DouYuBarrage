@@ -40,13 +40,13 @@ namespace DouyuBarrage.Utils
                 if (arr2.Length == 1) // value为空
                 {
                     string key = Escape(arr2[0]);
-                    keyValues.Add(key, "");
+                    keyValues.TryAdd(key, "");
                 }
                 else
                 {
                     string key = Escape(arr2[0]);
                     string value = Escape(arr2[1]);
-                    keyValues.Add(key, value);
+                    keyValues.TryAdd(key, value);
                 }
             }
 

@@ -264,10 +264,15 @@ namespace DouyuBarrage.Client
                     logger.Debug(recvPacket.ToString());
 
                     // 解析内容
-                    Dictionary<string, string> keyValues = STTDeserializer.Deserialize(recvPacket.ToString());
+                    Dictionary<string, string> keyValues = STTDeserializer.Deserialize(recvPacket.Data);
                     if (keyValues.ContainsKey("type"))
                     {
-                        logger.Info(keyValues.GetValueOrDefault("nn") + ":" + keyValues.GetValueOrDefault("txt"));
+                        switch(keyValues["type"])
+                        {
+                            case "chatmsg":
+                                logger.Info(keyValues.GetValueOrDefault("nn") + ":" + keyValues.GetValueOrDefault("txt"));
+                                break;
+                        }
                     }
                     else
                     {
