@@ -89,6 +89,8 @@ namespace DouyuBarrage.Client
             // 启动接收消息循环
             messageLookTask.Start();
 
+            logger.Info($"Connected To {roomId}.");
+
             return true;
         }
 
@@ -161,10 +163,15 @@ namespace DouyuBarrage.Client
                 return;
             }
 
-            LogoutRequest logoutRequest = new LogoutRequest();
-            BarragePacket packet = new BarragePacket(logoutRequest.ToString(), MessageType.CLIENT);
-            tcpClient.GetStream().Write(packet.Bytes, 0, packet.Bytes.Length);
-            tcpClient.GetStream().Flush();
+            // 判断消息循环任务是否退出了，若退出了，则说明网络出了问题
+            if (!messageLookTask.IsCompleted)
+            {
+                // 消息循环任务还没有退出，说明是主动断开连接，需要发送Logout包
+                LogoutRequest logoutRequest = new LogoutRequest();
+                BarragePacket packet = new BarragePacket(logoutRequest.ToString(), MessageType.CLIENT);
+                tcpClient.GetStream().Write(packet.Bytes, 0, packet.Bytes.Length);
+                tcpClient.GetStream().Flush();
+            }
 
             // 设置是否正在运行标志为false
             Running = false;
