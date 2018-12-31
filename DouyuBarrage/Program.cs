@@ -16,7 +16,12 @@ namespace DouyuBarrage
             XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
 
             DouYuBarrageClient client = new DouYuBarrageClient();
-            client.Connect(252802);
+            client.Connect(248753);
+
+            ILog logger = LogManager.GetLogger("Logger", typeof(Program));
+            client.OnChat += (Message.ChatMessage obj) => {
+                logger.Info(obj.NickName + ":" + obj.Text);
+            };
 
             Console.ReadKey();
             client.Disconnect();

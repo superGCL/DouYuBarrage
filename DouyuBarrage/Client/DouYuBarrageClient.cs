@@ -147,7 +147,7 @@ namespace DouyuBarrage.Client
             logger.Debug(recvPacket.ToString());
 
             // 将返回结果解析成LoginResponse
-            LoginResponseMessage response = new LoginResponseMessage(recvPacket.ToString());
+            LoginResponseMessage response = MessageResolver.ResolveLoginResponseMessage(recvPacket.ToString());
             OnLoginSucceed?.Invoke(response);
 
             return true;
@@ -277,7 +277,8 @@ namespace DouyuBarrage.Client
                         switch(keyValues["type"])
                         {
                             case "chatmsg":
-                                logger.Info(keyValues.GetValueOrDefault("nn") + ":" + keyValues.GetValueOrDefault("txt"));
+                                ChatMessage chatMessage = MessageResolver.ResolveChatMessage(recvPacket.Data);
+                                OnChat?.Invoke(chatMessage);
                                 break;
                         }
                     }
