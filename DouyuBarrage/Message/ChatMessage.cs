@@ -1,5 +1,10 @@
-﻿namespace DouyuBarrage.Message
+﻿using System.Collections.Generic;
+
+namespace DouyuBarrage.Message
 {
+    /// <summary>
+    /// 弹幕消息.
+    /// </summary>
     public class ChatMessage
     {
         /// <summary>
@@ -51,5 +56,10 @@
         /// 是否粉丝弹幕标记
         /// </summary>
         public bool IsFans { set; get; }
+
+        /// <summary>
+        /// 原始数据
+        /// </summary>
+        public Dictionary<string, string> Original { set; get; }
     }
 }

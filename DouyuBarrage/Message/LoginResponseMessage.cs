@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace DouyuBarrage.Message
 {
+    /// <summary>
+    /// 登录响应消息.
+    /// </summary>
     public class LoginResponseMessage
     {
         /// <summary>
@@ -25,5 +28,10 @@ namespace DouyuBarrage.Message
         /// 直播状态
         /// </summary>
         public string LiveStat { set; get; }
+
+        /// <summary>
+        /// 原始数据
+        /// </summary>
+        public Dictionary<string, string> Original { set; get; }
     }
 }

@@ -17,6 +17,7 @@ namespace DouyuBarrage.Message
                     UserName = keyValues.GetValueOrDefault("username"),
                     NickName = keyValues.GetValueOrDefault("nickname"),
                     LiveStat = keyValues.GetValueOrDefault("live_stat"),
+                    Original = keyValues
                 };
 
                 return loginResponseMessage;
@@ -41,10 +42,34 @@ namespace DouyuBarrage.Message
                     Level = Convert.ToInt32(keyValues.GetValueOrDefault("level")),
                     Icon = keyValues.GetValueOrDefault("ic"),
                     AnchorLevel = Convert.ToInt32(keyValues.GetValueOrDefault("ol")),
-                    IsFans = keyValues.GetValueOrDefault("ifs") == "1"
+                    IsFans = keyValues.GetValueOrDefault("ifs") == "1",
+                    Original = keyValues
                 };
 
                 return chatMessage;
+            }
+            return null;
+        }
+
+        public static OnlineGiftMessage ResolveOnlineGiftMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                OnlineGiftMessage onlineGiftMessage = new OnlineGiftMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    UserId = keyValues.GetValueOrDefault("uid"),
+                    NickName = keyValues.GetValueOrDefault("nn"),
+                    Level = Convert.ToInt32(keyValues.GetValueOrDefault("level")),
+                    Sil = Convert.ToInt32(keyValues.GetValueOrDefault("sil")),
+                    If = Convert.ToInt32(keyValues.GetValueOrDefault("if")),
+                    Ur = Convert.ToInt32(keyValues.GetValueOrDefault("ur")),
+                    Original = keyValues
+                };
+
+                return onlineGiftMessage;
             }
             return null;
         }
