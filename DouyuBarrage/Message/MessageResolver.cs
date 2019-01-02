@@ -73,5 +73,30 @@ namespace DouyuBarrage.Message
             }
             return null;
         }
+
+        public static DgbMessage ResolveDgbMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                DgbMessage dgbMessage = new DgbMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    UserId = keyValues.GetValueOrDefault("uid"),
+                    NickName = keyValues.GetValueOrDefault("nn"),
+                    Level = Convert.ToInt32(keyValues.GetValueOrDefault("level")),
+                    GiftId = Convert.ToInt32(keyValues.GetValueOrDefault("gfid")),
+                    GiftStyle = keyValues.GetValueOrDefault("gs"),
+                    GiftCount = Convert.ToInt32(keyValues.GetValueOrDefault("gfcnt")),
+                    NobleLevel = Convert.ToInt32(keyValues.GetValueOrDefault("nl")),
+                    Hits = Convert.ToInt32(keyValues.GetValueOrDefault("hits")),
+                    Original = keyValues
+                };
+
+                return dgbMessage;
+            }
+            return null;
+        }
     }
 }

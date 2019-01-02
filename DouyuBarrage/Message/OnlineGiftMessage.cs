@@ -32,7 +32,6 @@ namespace DouyuBarrage.Message
         /// <summary>
         /// 领取鱼丸的等级
         /// </summary>
-        /// <value>If.</value>
         public int If { set; get; }
 
         /// <summary>
@@ -43,7 +42,6 @@ namespace DouyuBarrage.Message
         /// <summary>
         /// 鱼丸之刃的倍率
         /// </summary>
-        /// <value>The ur.</value>
         public int Ur { set; get; }
 
         /// <summary>
