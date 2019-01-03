@@ -280,6 +280,26 @@ namespace DouyuBarrage.Client
                                 ChatMessage chatMessage = MessageResolver.ResolveChatMessage(recvPacket.Data);
                                 OnChat?.Invoke(chatMessage);
                                 break;
+                            case "onlinegift":
+                                OnlineGiftMessage onlineGiftMessage = MessageResolver.ResolveOnlineGiftMessage(recvPacket.Data);
+                                OnOnlineGift?.Invoke(onlineGiftMessage);
+                                break;
+                            case "dgb":
+                                DgbMessage dgbMessage = MessageResolver.ResolveDgbMessage(recvPacket.Data);
+                                OnDgb?.Invoke(dgbMessage);
+                                break;
+                            case "uenter":
+                                UserEnterMessage userEnterMessage = MessageResolver.ResolveUserEnterMessage(recvPacket.Data);
+                                OnUserEnter?.Invoke(userEnterMessage);
+                                break;
+                            case "bc_buy_deserve":
+                                BcBuyDeserveMessage bcBuyDeserveMessage = MessageResolver.ResolveBcBuyDeserveMessage(recvPacket.Data);
+                                OnBcBuyDeserve?.Invoke(bcBuyDeserveMessage);
+                                break;
+                            case "rss":
+                                RssMessage rssMessage = MessageResolver.ResolveRssMessage(recvPacket.Data);
+                                OnRss?.Invoke(rssMessage);
+                                break;
                         }
                     }
                     else
@@ -380,5 +400,30 @@ namespace DouyuBarrage.Client
         /// Chat Message Event
         /// </summary>
         public event Action<ChatMessage> OnChat;
+
+        /// <summary>
+        /// 在线鱼丸暴击
+        /// </summary>
+        public event Action<OnlineGiftMessage> OnOnlineGift;
+
+        /// <summary>
+        /// 赠送礼物
+        /// </summary>
+        public event Action<DgbMessage> OnDgb;
+
+        /// <summary>
+        /// 用户进入房间
+        /// </summary>
+        public event Action<UserEnterMessage> OnUserEnter;
+
+        /// <summary>
+        /// 用户购买酬勤
+        /// </summary>
+        public event Action<BcBuyDeserveMessage> OnBcBuyDeserve;
+
+        /// <summary>
+        /// 主播开关播提醒
+        /// </summary>
+        public event Action<RssMessage> OnRss;
     }
 }
