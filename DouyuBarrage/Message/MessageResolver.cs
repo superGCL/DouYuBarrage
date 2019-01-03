@@ -35,7 +35,7 @@ namespace DouyuBarrage.Message
                 {
                     GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
                     RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
-                    UserId = keyValues.GetValueOrDefault("uid"),
+                    UserId = Convert.ToInt32(keyValues.GetValueOrDefault("uid")),
                     NickName = keyValues.GetValueOrDefault("nn"),
                     Text = keyValues.GetValueOrDefault("txt"),
                     ChatId = keyValues.GetValueOrDefault("cid"),
