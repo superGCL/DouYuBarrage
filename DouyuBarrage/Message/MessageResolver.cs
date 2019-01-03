@@ -98,5 +98,68 @@ namespace DouyuBarrage.Message
             }
             return null;
         }
+
+        public static UserEnterMessage ResolveUserEnterMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                UserEnterMessage userEnterMessage = new UserEnterMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    UserId = keyValues.GetValueOrDefault("uid"),
+                    NickName = keyValues.GetValueOrDefault("nn"),
+                    Level = Convert.ToInt32(keyValues.GetValueOrDefault("level")),
+                    NobleLevel = Convert.ToInt32(keyValues.GetValueOrDefault("nl")),
+                    Icon = keyValues.GetValueOrDefault("ic"),
+                    Original = keyValues
+                };
+
+                return userEnterMessage;
+            }
+            return null;
+        }
+
+        public static BcBuyDeserveMessage ResolveBcBuyDeserveMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                BcBuyDeserveMessage bcBuyDeserveMessage = new BcBuyDeserveMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    Level = Convert.ToInt32(keyValues.GetValueOrDefault("level")),
+                    Count = Convert.ToInt32(keyValues.GetValueOrDefault("cnt")),
+                    Hits = Convert.ToInt32(keyValues.GetValueOrDefault("hits")),
+                    Original = keyValues
+                };
+
+                return bcBuyDeserveMessage;
+            }
+            return null;
+        }
+
+        public static RssMessage ResolveRssMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                RssMessage rssMessage = new RssMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    Living = keyValues.GetValueOrDefault("ss") == "1",
+                    Code = keyValues.GetValueOrDefault("code"),
+                    Notify = keyValues.GetValueOrDefault("notify"),
+                    Endtime = keyValues.GetValueOrDefault("endtime"),
+                    Original = keyValues
+                };
+
+                return rssMessage;
+            }
+            return null;
+        }
     }
 }

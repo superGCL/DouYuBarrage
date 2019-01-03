@@ -57,7 +57,6 @@ namespace DouyuBarrage.Message
         /// <summary>
         /// 贵族等级
         /// </summary>
-        /// <value>The noble level.</value>
         public int NobleLevel { set; get; }
 
         /// <summary>
