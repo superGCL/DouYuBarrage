@@ -308,6 +308,10 @@ namespace DouyuBarrage.Client
                                 SsdMessage ssdMessage = MessageResolver.ResolveSsdMessage(recvPacket.Data);
                                 OnSsd?.Invoke(ssdMessage);
                                 break;
+                            case "spbc":
+                                SpbcMessage spbcMessage = MessageResolver.ResolveSpbcMessage(recvPacket.Data);
+                                OnSpbcBroadcast?.Invoke(spbcMessage);
+                                break;
                         }
                     }
                     else
@@ -443,5 +447,10 @@ namespace DouyuBarrage.Client
         /// 超级弹幕
         /// </summary>
         public event Action<SsdMessage> OnSsd;
+
+        /// <summary>
+        /// 房间内礼物广播
+        /// </summary>
+        public event Action<SpbcMessage> OnSpbcBroadcast;
     }
 }

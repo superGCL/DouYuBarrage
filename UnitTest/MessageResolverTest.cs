@@ -71,5 +71,16 @@ namespace UnitTest
             Assert.Equal(5820716, msg.JumpRoomId);
             Assert.Equal(20329, msg.Id);
         }
+
+        [Fact]
+        public void SpbcMessageTest()
+        {
+            string message = @"type@=spbc/sn@=俊家丶丶駟/dn@=小俊蜀黍/gn@=火箭/gc@=1/drid@=4895778/gs@=5/gb@=1/es@=1/gfid@=196/eid@=143/bgl@=3/ifs@=0/rid@=-1003548456/gid@=32609/bid@=1002012_1546520793_9382/sid@=194394756/cl2@=0/eic@=0/bbi@=0/";
+            SpbcMessage spbcMessage = MessageResolver.ResolveSpbcMessage(message);
+
+            Assert.Equal(-1003548456, spbcMessage.RoomId);
+            Assert.Equal("小俊蜀黍", spbcMessage.DeservedNickName);
+            Assert.Equal("俊家丶丶駟", spbcMessage.SenderNickName);
+        }
     }
 }

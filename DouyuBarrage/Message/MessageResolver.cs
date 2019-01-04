@@ -203,5 +203,27 @@ namespace DouyuBarrage.Message
             }
             return null;
         }
+
+        public static SpbcMessage ResolveSpbcMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                SpbcMessage spbcMessage = new SpbcMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    SenderNickName = keyValues.GetValueOrDefault("sn"),
+                    DeservedNickName = keyValues.GetValueOrDefault("dn"),
+                    GiftName = keyValues.GetValueOrDefault("gn"),
+                    GiftCount = Convert.ToInt32(keyValues.GetValueOrDefault("gc")),
+                    DeservedRoomId = Convert.ToInt32(keyValues.GetValueOrDefault("drid")),
+                    Original = keyValues
+                };
+
+                return spbcMessage;
+            }
+            return null;
+        }
     }
 }
