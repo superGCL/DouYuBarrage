@@ -23,7 +23,7 @@ namespace DouyuBarrage
                 logger.Info(obj.NickName + ":" + obj.Text);
             };
 
-            client.OnUserEnter += (Message.UserEnterMessage obj) =>
+            client.OnUserEnterBroadcast += (Message.UserEnterMessage obj) =>
             {
                 logger.Info(obj.NickName + " 进入了房间");
             };

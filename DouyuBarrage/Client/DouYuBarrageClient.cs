@@ -282,23 +282,23 @@ namespace DouyuBarrage.Client
                                 break;
                             case "onlinegift":
                                 OnlineGiftMessage onlineGiftMessage = MessageResolver.ResolveOnlineGiftMessage(recvPacket.Data);
-                                OnOnlineGift?.Invoke(onlineGiftMessage);
+                                OnOnlineGiftBroadcast?.Invoke(onlineGiftMessage);
                                 break;
                             case "dgb":
                                 DgbMessage dgbMessage = MessageResolver.ResolveDgbMessage(recvPacket.Data);
-                                OnDgb?.Invoke(dgbMessage);
+                                OnDgbBroadcast?.Invoke(dgbMessage);
                                 break;
                             case "uenter":
                                 UserEnterMessage userEnterMessage = MessageResolver.ResolveUserEnterMessage(recvPacket.Data);
-                                OnUserEnter?.Invoke(userEnterMessage);
+                                OnUserEnterBroadcast?.Invoke(userEnterMessage);
                                 break;
                             case "bc_buy_deserve":
                                 BcBuyDeserveMessage bcBuyDeserveMessage = MessageResolver.ResolveBcBuyDeserveMessage(recvPacket.Data);
-                                OnBcBuyDeserve?.Invoke(bcBuyDeserveMessage);
+                                OnBcBuyDeserveBroadcast?.Invoke(bcBuyDeserveMessage);
                                 break;
                             case "rss":
                                 RssMessage rssMessage = MessageResolver.ResolveRssMessage(recvPacket.Data);
-                                OnRss?.Invoke(rssMessage);
+                                OnRssBroadcast?.Invoke(rssMessage);
                                 break;
                             case "ranklist":
                                 RankListMessage rankListMessage = MessageResolver.ResolveRankListMessage(recvPacket.Data);
@@ -306,7 +306,7 @@ namespace DouyuBarrage.Client
                                 break;
                             case "ssd":
                                 SsdMessage ssdMessage = MessageResolver.ResolveSsdMessage(recvPacket.Data);
-                                OnSsd?.Invoke(ssdMessage);
+                                OnSsdBroadcast?.Invoke(ssdMessage);
                                 break;
                             case "spbc":
                                 SpbcMessage spbcMessage = MessageResolver.ResolveSpbcMessage(recvPacket.Data);
@@ -420,27 +420,27 @@ namespace DouyuBarrage.Client
         /// <summary>
         /// 在线鱼丸暴击
         /// </summary>
-        public event Action<OnlineGiftMessage> OnOnlineGift;
+        public event Action<OnlineGiftMessage> OnOnlineGiftBroadcast;
 
         /// <summary>
         /// 赠送礼物
         /// </summary>
-        public event Action<DgbMessage> OnDgb;
+        public event Action<DgbMessage> OnDgbBroadcast;
 
         /// <summary>
         /// 用户进入房间
         /// </summary>
-        public event Action<UserEnterMessage> OnUserEnter;
+        public event Action<UserEnterMessage> OnUserEnterBroadcast;
 
         /// <summary>
         /// 用户购买酬勤
         /// </summary>
-        public event Action<BcBuyDeserveMessage> OnBcBuyDeserve;
+        public event Action<BcBuyDeserveMessage> OnBcBuyDeserveBroadcast;
 
         /// <summary>
         /// 主播开关播提醒
         /// </summary>
-        public event Action<RssMessage> OnRss;
+        public event Action<RssMessage> OnRssBroadcast;
 
         /// <summary>
         /// 广播排行榜信息
@@ -450,7 +450,7 @@ namespace DouyuBarrage.Client
         /// <summary>
         /// 超级弹幕
         /// </summary>
-        public event Action<SsdMessage> OnSsd;
+        public event Action<SsdMessage> OnSsdBroadcast;
 
         /// <summary>
         /// 房间内礼物广播
