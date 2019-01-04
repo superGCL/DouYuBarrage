@@ -82,5 +82,16 @@ namespace UnitTest
             Assert.Equal("小俊蜀黍", spbcMessage.DeservedNickName);
             Assert.Equal("俊家丶丶駟", spbcMessage.SenderNickName);
         }
+
+        [Fact]
+        public void GgbbMessageTest()
+        {
+            string message = @"type@=ggbb/rid@=1/gid@=999/gfid@=-999/gt@=1/sl@=100/sid@=900/did@=222/snk@=gcl/dnk@=supergcl/rtp@=1/";
+            GgbbMessage ggbbMessage = MessageResolver.ResolveGgbbMessage(message);
+
+            Assert.Equal(1, ggbbMessage.RoomId);
+            Assert.Equal("supergcl", ggbbMessage.DeservedNickName);
+            Assert.Equal("gcl", ggbbMessage.SenderNickName);
+        }
     }
 }

@@ -312,6 +312,10 @@ namespace DouyuBarrage.Client
                                 SpbcMessage spbcMessage = MessageResolver.ResolveSpbcMessage(recvPacket.Data);
                                 OnSpbcBroadcast?.Invoke(spbcMessage);
                                 break;
+                            case "ggbb":
+                                GgbbMessage ggbbMessage = MessageResolver.ResolveGgbbMessage(recvPacket.Data);
+                                OnGgbbBroadcast?.Invoke(ggbbMessage);
+                                break;
                         }
                     }
                     else
@@ -452,5 +456,10 @@ namespace DouyuBarrage.Client
         /// 房间内礼物广播
         /// </summary>
         public event Action<SpbcMessage> OnSpbcBroadcast;
+
+        /// <summary>
+        /// 房间内用户抢红包广播
+        /// </summary>
+        public event Action<GgbbMessage> OnGgbbBroadcast;
     }
 }

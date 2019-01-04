@@ -225,5 +225,29 @@ namespace DouyuBarrage.Message
             }
             return null;
         }
+
+        public static GgbbMessage ResolveGgbbMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                GgbbMessage spbcMessage = new GgbbMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    GiftType = Convert.ToInt32(keyValues.GetValueOrDefault("gt")),
+                    Count = Convert.ToInt32(keyValues.GetValueOrDefault("sl")),
+                    SenderId = Convert.ToInt32(keyValues.GetValueOrDefault("sid")),
+                    DeservedId = Convert.ToInt32(keyValues.GetValueOrDefault("did")),
+                    SenderNickName = keyValues.GetValueOrDefault("snk"),
+                    DeservedNickName = keyValues.GetValueOrDefault("dnk"),
+                    Type = Convert.ToInt32(keyValues.GetValueOrDefault("rpt")),
+                    Original = keyValues
+                };
+
+                return spbcMessage;
+            }
+            return null;
+        }
     }
 }
