@@ -274,7 +274,7 @@ namespace DouyuBarrage.Client
                     Dictionary<string, string> keyValues = STTDeserializer.Deserialize(recvPacket.Data);
                     if (keyValues.ContainsKey("type"))
                     {
-                        switch(keyValues["type"])
+                        switch (keyValues["type"])
                         {
                             case "chatmsg":
                                 ChatMessage chatMessage = MessageResolver.ResolveChatMessage(recvPacket.Data);
@@ -406,7 +406,7 @@ namespace DouyuBarrage.Client
         /// 持续接收消息
         /// </summary>
         private Task messageLookTask;
-        
+
         /// <summary>
         /// Login Room Succeed Event
         /// </summary>
