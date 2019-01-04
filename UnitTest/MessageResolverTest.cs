@@ -59,5 +59,17 @@ namespace UnitTest
             IList<RankListItem> allList = msg.AllRankList;
             Assert.Equal(10, allList.Count);
         }
+
+        [Fact]
+        public void SsdMessageTest()
+        {
+            string message = @"type@=ssd/sdid@=20329/content@=哇！这个主播要送粉丝2000块钱！！/rid@=248753/gid@=0/url@=/trid@=5820716/clitp@=7/jmptp@=1/";
+            SsdMessage msg = MessageResolver.ResolveSsdMessage(message);
+            Assert.Equal(248753, msg.RoomId);
+            Assert.Equal(0, msg.GroupId);
+            Assert.Equal("", msg.Url);
+            Assert.Equal(5820716, msg.JumpRoomId);
+            Assert.Equal(20329, msg.Id);
+        }
     }
 }

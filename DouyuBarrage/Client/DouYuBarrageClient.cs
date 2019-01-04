@@ -304,6 +304,10 @@ namespace DouyuBarrage.Client
                                 RankListMessage rankListMessage = MessageResolver.ResolveRankListMessage(recvPacket.Data);
                                 OnRankListBroadcast?.Invoke(rankListMessage);
                                 break;
+                            case "ssd":
+                                SsdMessage ssdMessage = MessageResolver.ResolveSsdMessage(recvPacket.Data);
+                                OnSsd?.Invoke(ssdMessage);
+                                break;
                         }
                     }
                     else
@@ -434,5 +438,10 @@ namespace DouyuBarrage.Client
         /// 广播排行榜信息
         /// </summary>
         public event Action<RankListMessage> OnRankListBroadcast;
+
+        /// <summary>
+        /// 超级弹幕
+        /// </summary>
+        public event Action<SsdMessage> OnSsd;
     }
 }

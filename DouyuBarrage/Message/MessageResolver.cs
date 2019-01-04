@@ -180,5 +180,28 @@ namespace DouyuBarrage.Message
             }
             return null;
         }
+
+        public static SsdMessage ResolveSsdMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                SsdMessage ssdMessage = new SsdMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    Id = Convert.ToInt32(keyValues.GetValueOrDefault("sdid")),
+                    JumpRoomId = Convert.ToInt32(keyValues.GetValueOrDefault("trid")),
+                    ClientType = Convert.ToInt32(keyValues.GetValueOrDefault("clitp")),
+                    JumpType = Convert.ToInt32(keyValues.GetValueOrDefault("jmptp")),
+                    Content = keyValues.GetValueOrDefault("content"),
+                    Url = keyValues.GetValueOrDefault("url"),
+                    Original = keyValues
+                };
+
+                return ssdMessage;
+            }
+            return null;
+        }
     }
 }
