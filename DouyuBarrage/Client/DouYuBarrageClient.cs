@@ -300,6 +300,10 @@ namespace DouyuBarrage.Client
                                 RssMessage rssMessage = MessageResolver.ResolveRssMessage(recvPacket.Data);
                                 OnRss?.Invoke(rssMessage);
                                 break;
+                            case "ranklist":
+                                RankListMessage rankListMessage = MessageResolver.ResolveRankListMessage(recvPacket.Data);
+                                OnRankListBroadcast?.Invoke(rankListMessage);
+                                break;
                         }
                     }
                     else
@@ -425,5 +429,10 @@ namespace DouyuBarrage.Client
         /// 主播开关播提醒
         /// </summary>
         public event Action<RssMessage> OnRss;
+
+        /// <summary>
+        /// 广播排行榜信息
+        /// </summary>
+        public event Action<RankListMessage> OnRankListBroadcast;
     }
 }

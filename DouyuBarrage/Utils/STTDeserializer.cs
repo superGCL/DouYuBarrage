@@ -27,7 +27,7 @@ namespace DouyuBarrage.Utils
             Dictionary<string, string> keyValues = new Dictionary<string, string>();
 
             // 第一步 先用/分割
-            string[] arr = content.Split(ARRAY_SPERATOR);
+            string[] arr = content.Split(ARRAY_SPERATOR, System.StringSplitOptions.RemoveEmptyEntries);
             if (arr.Length <= 0)
             {
                 return keyValues;
@@ -36,7 +36,7 @@ namespace DouyuBarrage.Utils
             // 第二步 对每一个keyValuePair再使用@=分割
             foreach (string kv in arr)
             {
-                string[] arr2 = kv.Split(KEY_VALUE_SPERATOR);
+                string[] arr2 = kv.Split(KEY_VALUE_SPERATOR, System.StringSplitOptions.RemoveEmptyEntries);
                 if (arr2.Length == 1) // value为空
                 {
                     string key = Escape(arr2[0]);
@@ -61,8 +61,8 @@ namespace DouyuBarrage.Utils
         /// <param name="str">String.</param>
         private static string Escape(string str)
         {
-            str = str.Replace("@A", "@");
             str = str.Replace("@S", "/");
+            str = str.Replace("@A", "@");
             return str;
         }
     }

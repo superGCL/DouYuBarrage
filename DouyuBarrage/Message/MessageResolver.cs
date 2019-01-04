@@ -161,5 +161,24 @@ namespace DouyuBarrage.Message
             }
             return null;
         }
+
+        public static RankListMessage ResolveRankListMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                RankListMessage rankListMessage = new RankListMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    Timestamp = Convert.ToInt64(keyValues.GetValueOrDefault("ts")),
+                    Sequence = Convert.ToInt32(keyValues.GetValueOrDefault("seq")),
+                    Original = keyValues
+                };
+
+                return rankListMessage;
+            }
+            return null;
+        }
     }
 }
