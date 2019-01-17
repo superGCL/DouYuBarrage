@@ -20,7 +20,7 @@ namespace DouyuBarrage.Message
         /// <summary>
         /// 发送者UID.
         /// </summary>
-        public int UserId { set; get; }
+        public string UserId { set; get; }
 
         /// <summary>
         /// 昵称.

@@ -35,7 +35,7 @@ namespace DouyuBarrage.Message
                 {
                     GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
                     RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
-                    UserId = Convert.ToInt32(keyValues.GetValueOrDefault("uid")),
+                    UserId = keyValues.GetValueOrDefault("uid"),
                     NickName = keyValues.GetValueOrDefault("nn"),
                     Text = keyValues.GetValueOrDefault("txt"),
                     ChatId = keyValues.GetValueOrDefault("cid"),
@@ -246,6 +246,105 @@ namespace DouyuBarrage.Message
                 };
 
                 return spbcMessage;
+            }
+            return null;
+        }
+
+        public static RankUpMessage ResolveRankUpMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                RankUpMessage rankUpMessage = new RankUpMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    UserId = keyValues.GetValueOrDefault("uid"),
+                    DestRoomId = Convert.ToInt32(keyValues.GetValueOrDefault("drid")),
+                    NickName = keyValues.GetValueOrDefault("nk"),
+                    RankType = keyValues.GetValueOrDefault("rkt"),
+                    RankNow = Convert.ToInt32(keyValues.GetValueOrDefault("rn")),
+                    Original = keyValues
+                };
+
+                return rankUpMessage;
+            }
+            return null;
+        }
+
+        public static AnchorLeaveMessage ResolveAnchorLeaveMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                AnchorLeaveMessage alMessage = new AnchorLeaveMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    AnchorId = Convert.ToInt32(keyValues.GetValueOrDefault("aid")),
+                    Original = keyValues
+                };
+
+                return alMessage;
+            }
+            return null;
+        }
+
+        public static AnchorBackMessage ResolveAnchorBackMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                AnchorBackMessage abMessage = new AnchorBackMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    AnchorId = Convert.ToInt32(keyValues.GetValueOrDefault("aid")),
+                    Original = keyValues
+                };
+
+                return abMessage;
+            }
+            return null;
+        }
+
+        public static RuclpMessage ResolveRuclpMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                RuclpMessage ruclpMessage = new RuclpMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    Original = keyValues
+                };
+
+                return ruclpMessage;
+            }
+            return null;
+        }
+
+        public static GpbcMessage ResolveGpbcMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                GpbcMessage gpbcMessage = new GpbcMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    Count = Convert.ToInt32(keyValues.GetValueOrDefault("cnt")),
+                    SenderId = keyValues.GetValueOrDefault("sid"),
+                    SenderNickName = keyValues.GetValueOrDefault("snk"),
+                    ReceiverId = keyValues.GetValueOrDefault("did"),
+                    ReceiverNickName = keyValues.GetValueOrDefault("dnk"),
+                    RedPacketType = keyValues.GetValueOrDefault("rpt"),
+                    PacketName = keyValues.GetValueOrDefault("pnm"),
+                    Original = keyValues
+                };
+
+                return gpbcMessage;
             }
             return null;
         }

@@ -316,6 +316,26 @@ namespace DouyuBarrage.Client
                                 GgbbMessage ggbbMessage = MessageResolver.ResolveGgbbMessage(recvPacket.Data);
                                 OnGgbbBroadcast?.Invoke(ggbbMessage);
                                 break;
+                            case "rankup":
+                                RankUpMessage rankUpMessage = MessageResolver.ResolveRankUpMessage(recvPacket.Data);
+                                OnRankUpBroadcast?.Invoke(rankUpMessage);
+                                break;
+                            case "al":
+                                AnchorLeaveMessage anchorLeaveMessage = MessageResolver.ResolveAnchorLeaveMessage(recvPacket.Data);
+                                OnAnchorLeave?.Invoke(anchorLeaveMessage);
+                                break;
+                            case "ab":
+                                AnchorBackMessage anchorBackMessage = MessageResolver.ResolveAnchorBackMessage(recvPacket.Data);
+                                OnAnchorBack?.Invoke(anchorBackMessage);
+                                break;
+                            case "ruclp":
+                                RuclpMessage ruclpMessage = MessageResolver.ResolveRuclpMessage(recvPacket.Data);
+                                OnRuclpBroadcast?.Invoke(ruclpMessage);
+                                break;
+                            case "gpbc":
+                                GpbcMessage gpbcMessage = MessageResolver.ResolveGpbcMessage(recvPacket.Data);
+                                OnGpbcBroadcast?.Invoke(gpbcMessage);
+                                break;
                         }
                     }
                     else
@@ -461,5 +481,30 @@ namespace DouyuBarrage.Client
         /// 房间内用户抢红包广播
         /// </summary>
         public event Action<GgbbMessage> OnGgbbBroadcast;
+
+        /// <summary>
+        /// 房间内top10发生变化广播
+        /// </summary>
+        public event Action<RankUpMessage> OnRankUpBroadcast;
+
+        /// <summary>
+        /// 主播离开
+        /// </summary>
+        public event Action<AnchorLeaveMessage> OnAnchorLeave;
+
+        /// <summary>
+        /// 主播回来
+        /// </summary>
+        public event Action<AnchorBackMessage> OnAnchorBack;
+
+        /// <summary>
+        /// 用户点赞推送通知
+        /// </summary>
+        public event Action<RuclpMessage> OnRuclpBroadcast;
+
+        /// <summary>
+        /// 房间内用户抢到道具
+        /// </summary>
+        public event Action<GpbcMessage> OnGpbcBroadcast;
     }
 }
