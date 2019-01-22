@@ -371,6 +371,14 @@ namespace DouyuBarrage.Client
         }
 
         /// <summary>
+        /// 等待线程退出
+        /// </summary>
+        public void ThreadJoin()
+        {
+            messageLookTask?.Wait();
+        }
+
+        /// <summary>
         /// 从Stream中读取指定大小的字节
         /// </summary>
         /// <param name="ns">NetworkStream</param>

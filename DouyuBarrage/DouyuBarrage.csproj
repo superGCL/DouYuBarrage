@@ -3,6 +3,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <StartupObject>DouyuBarrage.Program</StartupObject>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>SuperGCL</Authors>
+    <Product />
+    <Description>一个简单的斗鱼弹幕程序</Description>
   </PropertyGroup>
 
   <ItemGroup>
