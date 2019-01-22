@@ -336,6 +336,14 @@ namespace DouyuBarrage.Client
                                 GpbcMessage gpbcMessage = MessageResolver.ResolveGpbcMessage(recvPacket.Data);
                                 OnGpbcBroadcast?.Invoke(gpbcMessage);
                                 break;
+                            case "online_noble_list":
+                                OnlineNobleListMessage onlineNobleListMessage = MessageResolver.ResolveOnlineNobleListMessage(recvPacket.Data);
+                                OnOnlineNobleListBroadcast?.Invoke(onlineNobleListMessage);
+                                break;
+                            case "upgrade":
+                                UpgradeMessage upgradeMessage = MessageResolver.ResolveUpgradeMessage(recvPacket.Data);
+                                OnUpgrade?.Invoke(upgradeMessage);
+                                break;
                         }
                     }
                     else
@@ -506,5 +514,15 @@ namespace DouyuBarrage.Client
         /// 房间内用户抢到道具
         /// </summary>
         public event Action<GpbcMessage> OnGpbcBroadcast;
+
+        /// <summary>
+        /// 在线贵族信息广播
+        /// </summary>
+        public event Action<OnlineNobleListMessage> OnOnlineNobleListBroadcast;
+
+        /// <summary>
+        /// 用户等级提升
+        /// </summary>
+        public event Action<UpgradeMessage> OnUpgrade;
     }
 }

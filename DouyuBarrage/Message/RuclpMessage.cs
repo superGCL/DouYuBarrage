@@ -35,7 +35,7 @@ namespace DouyuBarrage.Message
                 Dictionary<string, string> pairs = STTDeserializer.Deserialize(sui);
                 foreach (var kv in pairs)
                 {
-                    Dictionary<string, string> pairs2 = STTDeserializer.Deserialize(sui);
+                    Dictionary<string, string> pairs2 = STTDeserializer.Deserialize(kv.Key);
                     UserInfo userInfo = new UserInfo();
                     userInfo.Id = Convert.ToInt32(pairs2.GetValueOrDefault("uid"));
                     userInfo.NickName = pairs2.GetValueOrDefault("nn");

@@ -348,5 +348,43 @@ namespace DouyuBarrage.Message
             }
             return null;
         }
+
+        public static OnlineNobleListMessage ResolveOnlineNobleListMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                OnlineNobleListMessage onlineNobleListMessage = new OnlineNobleListMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    Count = Convert.ToInt32(keyValues.GetValueOrDefault("num")),
+                    Original = keyValues
+                };
+
+                return onlineNobleListMessage;
+            }
+            return null;
+        }
+
+        public static UpgradeMessage ResolveUpgradeMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                UpgradeMessage upgradeMessage = new UpgradeMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    Uid = keyValues.GetValueOrDefault("uid"),
+                    Level = Convert.ToInt32(keyValues.GetValueOrDefault("level")),
+                    Icon = keyValues.GetValueOrDefault("ic"),
+                    Original = keyValues
+                };
+
+                return upgradeMessage;
+            }
+            return null;
+        }
     }
 }
