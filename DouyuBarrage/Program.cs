@@ -46,7 +46,7 @@ namespace DouyuBarrage
             XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
             ILog logger = LogManager.GetLogger("Logger", typeof(Program));
 
-            DouYuBarrageClient client = new DouYuBarrageClient();
+            client = new DouYuBarrageClient();
             client.Connect(roomId);
             
             client.OnChat += (Message.ChatMessage obj) => {
@@ -58,7 +58,16 @@ namespace DouyuBarrage
                 logger.Info(obj.NickName + " 进入了房间");
             };
 
+            Console.CancelKeyPress += Console_CancelKeyPress;
+
             client.ThreadJoin();
+        }
+
+        private DouYuBarrageClient client = null;
+
+        private void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
+        {
+            client?.Disconnect();
         }
     }
 }
