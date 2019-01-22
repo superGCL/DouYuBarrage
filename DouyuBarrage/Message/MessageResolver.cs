@@ -386,5 +386,27 @@ namespace DouyuBarrage.Message
             }
             return null;
         }
+
+        public static NewBlackResMessage ResolveNewBlackResMessage(string message)
+        {
+            Dictionary<string, string> keyValues = STTDeserializer.Deserialize(message);
+            if (keyValues != null)
+            {
+                NewBlackResMessage newBlackResMessage = new NewBlackResMessage
+                {
+                    GroupId = Convert.ToInt32(keyValues.GetValueOrDefault("gid")),
+                    RoomId = Convert.ToInt32(keyValues.GetValueOrDefault("rid")),
+                    ErrorCode = Convert.ToInt32(keyValues.GetValueOrDefault("ret")),
+                    OperatorType = Convert.ToInt32(keyValues.GetValueOrDefault("otype")),
+                    Operator = keyValues.GetValueOrDefault("snic"),
+                    NickName = keyValues.GetValueOrDefault("dnic"),
+                    EndTime = keyValues.GetValueOrDefault("endtime"),
+                    Original = keyValues
+                };
+
+                return newBlackResMessage;
+            }
+            return null;
+        }
     }
 }

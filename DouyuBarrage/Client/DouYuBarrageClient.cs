@@ -344,6 +344,10 @@ namespace DouyuBarrage.Client
                                 UpgradeMessage upgradeMessage = MessageResolver.ResolveUpgradeMessage(recvPacket.Data);
                                 OnUpgrade?.Invoke(upgradeMessage);
                                 break;
+                            case "":
+                                NewBlackResMessage newBlackResMessage = MessageResolver.ResolveNewBlackResMessage(recvPacket.Data);
+                                OnNewBlackResult?.Invoke(newBlackResMessage);
+                                break;
                         }
                     }
                     else
@@ -524,5 +528,10 @@ namespace DouyuBarrage.Client
         /// 用户等级提升
         /// </summary>
         public event Action<UpgradeMessage> OnUpgrade;
+
+        /// <summary>
+        /// 禁言消息
+        /// </summary>
+        public event Action<NewBlackResMessage> OnNewBlackResult;
     }
 }
